@@ -8,7 +8,7 @@ export class DomListener {
 
 	initListeners() {
 		this.listeners.forEach( listener => {
-			const methodName = utils.methodName(listener);
+			const methodName = utils.parseMethodName(listener);
 			this[methodName] = this[methodName].bind(this);
 			this.$root.on(listener, this[methodName]);
 		});
@@ -16,7 +16,7 @@ export class DomListener {
 
 	removeListeners() {
 		this.listeners.forEach( listener => {
-			const methodName = utils.methodName(listener);
+			const methodName = utils.parseMethodName(listener);
 			this.$root.off(listener, this[methodName]);
 		});
 	}

@@ -1,5 +1,5 @@
 export const utils = {
-	methodName(str) {
+	parseMethodName(str) {
 		if (!str)
 		{
 			return '';

@@ -12,10 +12,12 @@ function createCell(data = '') {
 }
 
 function createRow(info = '', data = '') {
+	const resize = info ? '<div class="row-resize"></div>' : '';
 	return `
 	<div class="row">
 		<div class="row-info">
 			${info}
+			${resize}
 		</div>
 		<div class="row-data">
 			${data}
