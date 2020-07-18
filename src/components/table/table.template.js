@@ -3,18 +3,18 @@ const CODES = {
 	'Z': 90
 };
 
-function createCell(data = '') {
+function createCell(data = '', index) {
 	return `
-		<div class="cell" contenteditable="">
+		<div class="cell" contenteditable="" data-index="${index}">
 			${data}
 		</div>
 	`;
 }
 
 function createRow(info = '', data = '') {
-	const resize = info ? '<div class="row-resize"></div>' : '';
+	const resize = info ? '<div class="row-resize" data-resize="row"></div>' : '';
 	return `
-	<div class="row">
+	<div class="row" data-type="resizable">
 		<div class="row-info">
 			${info}
 			${resize}
@@ -26,10 +26,12 @@ function createRow(info = '', data = '') {
 	`;
 }
 
-function createColumn(data) {
+function createColumn(data, index) {
+	const resize = '<div class="col-resize" data-resize="column"></div>';
 	return `
-		<div class="column">
+		<div class="column" data-type="resizable" data-index="${index}">
 			${data}
+			${resize}
 		</div>
 	`;
 }
