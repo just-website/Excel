@@ -22,6 +22,10 @@ class Dom {
 		return this;
 	}
 
+	find(selector) {
+		return $(this.$element.querySelector(selector));
+	}
+
 	findAll(selector) {
 		return this.$element.querySelectorAll(selector);
 	}
@@ -47,6 +51,14 @@ class Dom {
 
 	off(eventName, callback) {
 		this.$element.removeEventListener(eventName, callback);
+	}
+
+	addClass(className) {
+		this.$element.classList.add(className);
+	}
+
+	removeClass(className) {
+		this.$element.classList.remove(className);
 	}
 }
 
