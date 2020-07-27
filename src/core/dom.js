@@ -22,6 +22,10 @@ class Dom {
 		return this;
 	}
 
+	focus() {
+		return $(this.$element.focus());
+	}
+
 	find(selector) {
 		return $(this.$element.querySelector(selector));
 	}

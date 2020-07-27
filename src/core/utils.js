@@ -12,7 +12,6 @@ export const getRange = (start, end) => {
 	if (start > end) {
 		[end, start] = [start, end];
 	}
-	console.log({end, start});
 	let length = end - start + 1;
 	return new Array(length).fill(null).map((_, index) => index + start);
 };

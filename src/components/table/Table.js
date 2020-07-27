@@ -7,7 +7,7 @@ import {getIds} from '../../core/utils';
 export class Table extends ExcelComponent {
 	constructor(root) {
 		super(root, {
-			listeners: ['click', 'mousedown', 'mousemove', 'mouseup']
+			listeners: ['click', 'mousedown', 'mousemove', 'mouseup', 'keydown']
 		});
 		this.root = root;
 	}
@@ -28,6 +28,17 @@ export class Table extends ExcelComponent {
 		// console.log('click', {event});
 	}
 
+	onKeydown(event) {
+		let {code, target, shiftKey} = event;
+		let currentCodes = ['Enter', 'Tab', 'ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft'];
+		if (currentCodes.includes(code) && !shiftKey) {
+			let currentId = $(target).data.id;
+			let nextId = getNextId(currentId, code);
+			let nextElement = this.root.find(`[data-id="${nextId}"]`);
+			this.selection.select(nextElement);
+		}
+	}
+
 	onMousedown(event) {
 		let {resize, cell: isCell} = event.target.dataset;
 		if (resize) {
@@ -37,8 +48,7 @@ export class Table extends ExcelComponent {
 			let cell = $(event.target);
 			if (event.shiftKey) {
 				let group = getIds(this.selection.lastActiveCell, cell)
-					.map((id) => this.root
-						.find(`[data-id="${id}"]`));
+					.map((id) => this.root.find(`[data-id="${id}"]`));
 				this.selection.selectGroup(group);
 			} else {
 				this.selection.select(cell);
@@ -53,4 +63,30 @@ export class Table extends ExcelComponent {
 	onMouseup() {
 		// console.log('mouseup', {event});
 	}
+}
+
+function getNextId(id, keyCode) {
+	let [row, column] = id.split(':');
+	switch (keyCode) {
+		case 'Tab':
+		case 'ArrowRight':
+			column++;
+			break;
+		case 'ArrowLeft': 
+			column--;
+			break;
+		case 'ArrowUp': 
+			row--;
+			break
+		case 'ArrowDown': 
+		case 'Enter': 
+			row++;
+	}
+	if(column < 0) {
+		column = 0;
+	}
+	if (row < 0) {
+		row = 0;
+	}
+	return `${row}:${column}`;
 }

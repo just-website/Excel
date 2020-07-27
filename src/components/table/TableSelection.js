@@ -9,6 +9,7 @@ export class TableSelection {
 		this.unselectAll();
 		this.group.push(element);
 		element.addClass(this.selectClass);
+		element.focus();
 		this.lastActiveCell = element;
 	}
 
@@ -16,6 +17,7 @@ export class TableSelection {
 		this.unselectAll();
 		elements.forEach( element => {
 			element.addClass(this.selectClass);
+			// this.lastActiveCell = element;
 		});
 		this.group = elements;
 	}
