@@ -3,7 +3,7 @@ import {createTable} from './table.template';
 import {resizeHandler} from './functions';
 import {TableSelection} from './TableSelection';
 import {$} from '../../core/dom';
-import {getIds} from '../../core/utils';
+import {getIds, getNextId} from '../../core/utils';
 export class Table extends ExcelComponent {
 	constructor(root) {
 		super(root, {
@@ -63,30 +63,4 @@ export class Table extends ExcelComponent {
 	onMouseup() {
 		// console.log('mouseup', {event});
 	}
-}
-
-function getNextId(id, keyCode) {
-	let [row, column] = id.split(':');
-	switch (keyCode) {
-		case 'Tab':
-		case 'ArrowRight':
-			column++;
-			break;
-		case 'ArrowLeft': 
-			column--;
-			break;
-		case 'ArrowUp': 
-			row--;
-			break
-		case 'ArrowDown': 
-		case 'Enter': 
-			row++;
-	}
-	if(column < 0) {
-		column = 0;
-	}
-	if (row < 0) {
-		row = 0;
-	}
-	return `${row}:${column}`;
 }
